@@ -6,5 +6,5 @@ public class Trip
         public string Name { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
-        public ICollection<ClientTrip> ClientTrips { get; set; }
+        public ICollection<ClientTrip> ClientTrips { get; set; } = new List<ClientTrip>();
 }
