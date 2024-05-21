@@ -27,6 +27,14 @@ public class Context : DbContext
             entity.Property(e => e.Pesel).IsRequired();
 
         });
+        modelBuilder.Entity<Trip>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Trips_pk");
+            entity.ToTable("Trips", "trip");
+            entity.Property(e => e.Name).IsRequired();
+            entity.Property(e => e.DateFrom).IsRequired().HasColumnType("datetime");
+            entity.Property(e => e.DateTo).IsRequired().HasColumnType("datetime");
+        });
 
     }
 }
