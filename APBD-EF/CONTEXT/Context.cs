@@ -35,6 +35,21 @@ public class Context : DbContext
             entity.Property(e => e.DateFrom).IsRequired().HasColumnType("datetime");
             entity.Property(e => e.DateTo).IsRequired().HasColumnType("datetime");
         });
+        modelBuilder.Entity<ClientTrip>(entity =>
+        {
+            entity.HasKey(e => new { e.ClientId, e.TripId }).HasName("ClientTrip_pk");
+            entity.ToTable("ClientTrips", "trip");
+            entity.Property(e => e.RegisteredAt).HasColumnType("datetime");
+            entity.Property(e => e.PaymentDate).HasColumnType("datetime");
+            entity.HasOne(e => e.Client)
+                .WithMany(d => d.ClientTrips)
+                .HasForeignKey(e => e.ClientId)
+                .HasConstraintName("FK_ClientTrips_Clients");
+            entity.HasOne(e => e.Trip)
+                .WithMany(d => d.ClientTrips)
+                .HasForeignKey(e => e.TripId)
+                .HasConstraintName("FK_ClientTrips_Trips");
+        });
 
     }
 }
