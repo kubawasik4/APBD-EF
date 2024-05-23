@@ -16,6 +16,11 @@ public class Context : DbContext
     public virtual DbSet<Client> Client { get; set; }
     public virtual DbSet<Trip> Trip { get; set; }
     public virtual DbSet<ClientTrip> ClientTrips { get; set; }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder
+            .UseSqlServer(
+                "Server=db-mssql16;Database=2019SBD;Trusted_Connection=True;User Id=sXXXXX;Password=ToNieJestZadneHaslo;")
+            .LogTo(Console.WriteLine, LogLevel.Information);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
